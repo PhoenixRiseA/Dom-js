@@ -12,8 +12,8 @@
 // console.log(document.links);
 // console.log(document.getElementById('header-title'));
 
-var headerTitle = document.getElementById('header-title');
-var header = document.getElementById('main-header');
+// var headerTitle = document.getElementById('header-title');
+// var header = document.getElementById('main-header');
 //console.log(headerTitle);
 //headerTitle.textContent = 'Hello';
 //headerTitle.innerText = 'Goodbye';
@@ -95,7 +95,7 @@ var header = document.getElementById('main-header');
 //     even[i].style.backgroundColor = '#ccc';
 // }
 // Traversing the Dom//
-var itemList = document.querySelector('#items');
+// var itemList = document.querySelector('#items');
 
 // parentNode
 
@@ -139,7 +139,7 @@ var itemList = document.querySelector('#items');
 
 // createElement
 
-// Create a div
+//Create a div
 // var newDiv = document.createElement('div');
 
 // // Add class
@@ -164,22 +164,101 @@ var itemList = document.querySelector('#items');
 // newDiv.style.fontSize = '30px';
 // container.insertBefore(newDiv, h1);
 
-// Now go head and add HEllo word before Item 1
+// // Now go head and add HEllo word before Item 1
 
-// create a li
-var newLi = document.createElement('li');
-newLi.className = 'list-group-item';
-var newLiText = document.createTextNode('Hello World');
-newLi.appendChild(newLiText);
-
-
-var bucket = document.querySelector('div .list-group');
-var item1 = document.querySelector('div li')
-
-console.log(newLi);
-
-bucket.insertBefore(newLi, item1);
+// // create a li
+// var newLi = document.createElement('li');
 // newLi.className = 'list-group-item';
+// var newLiText = document.createTextNode('Hello World');
+// newLi.appendChild(newLiText);
+
+
+// var bucket = document.querySelector('div .list-group');
+// var item1 = document.querySelector('div li')
+
+// console.log(newLi);
+
+// bucket.insertBefore(newLi, item1);
+
+var form = document.getElementById('addForm');
+var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
+
+// Form submit event
+form.addEventListener('submit', addItem);
+
+// Delete event
+
+// Remove item
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        if(confirm('Are you sure?')){
+            var li = e.target.parentElement;
+            itemList.removeChild(li);
+        }
+    }
+}
+itemList.addEventListener('click', removeItem);
+// filter element and its function
+
+function filterItems(e){
+    //convert to lowercase
+    var text = e.target.value.toLowerCase();
+    //Get li's
+    var items = itemList.getElementsByTagName('li');
+    //Convert to array
+
+    Array.from(items).forEach(function(item){
+        var itemName = item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1){
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+
+    });
+
+}
+filter.addEventListener('keyup', filterItems);
+
+
+
+//Add item
+function addItem(e){
+    e.preventDefault();
+
+    // Get input value
+    var newItem = document.getElementById('item').value;
+
+    // create new li element
+    var li = document.createElement('li');
+
+    // Add class
+    li.className = 'list-group-item';
+    
+    // Add text node with input value
+    li.appendChild(document.createTextNode(newItem));
+
+    //Create del button element
+    var deleteBtn = document.createElement('button');
+
+    // Add classes to del button
+    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+    
+    //Append text node
+    deleteBtn.appendChild(document.createTextNode('X'));
+    
+    // Append button to li
+
+    li.appendChild(deleteBtn);
+
+    // Append li to list
+
+    itemList.appendChild(li);
+
+    
+
+}
 
 
 
