@@ -83,7 +83,7 @@ var header = document.getElementById('main-header');
 //querySelectorAll
 var titles = document.querySelectorAll('.title');
 
-console.log(titles);
+//console.log(titles);
 titles[0].textContent = 'Hello';
 var Items = document.querySelectorAll('.list-group-item');
 Items[1].style.backgroundColor = 'green';
